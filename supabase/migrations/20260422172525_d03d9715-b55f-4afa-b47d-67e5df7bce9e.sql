@@ -1,0 +1,1 @@
+ALTER TABLE public.enrollments ADD COLUMN chargeback_count integer NOT NULL DEFAULT 0;

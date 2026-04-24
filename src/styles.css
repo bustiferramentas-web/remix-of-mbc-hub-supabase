@@ -1,0 +1,179 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Inter", ui-serif, Georgia, serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* MBC Hub — Light theme, modern SaaS (Linear/Notion vibe) with dark sidebar */
+:root {
+  --radius: 0.625rem;
+
+  --background: oklch(0.985 0.002 250);          /* #F8F9FA */
+  --foreground: oklch(0.205 0.02 260);           /* #111827 */
+  --surface: oklch(1 0 0);                       /* #FFFFFF */
+  --surface-2: oklch(0.97 0.003 250);            /* #F1F3F5 */
+
+  --card: var(--surface);
+  --card-foreground: var(--foreground);
+  --popover: var(--surface);
+  --popover-foreground: var(--foreground);
+
+  --primary: oklch(0.205 0.02 260);              /* #111827 dark slate */
+  --primary-foreground: oklch(1 0 0);
+  --accent: oklch(0.72 0.07 80);                 /* #B69D66 */
+  --accent-foreground: oklch(1 0 0);
+
+  --secondary: oklch(0.96 0.003 250);
+  --secondary-foreground: oklch(0.205 0.02 260);
+  --muted: oklch(0.96 0.003 250);
+  --muted-foreground: oklch(0.5 0.015 260);      /* #6B7280 */
+
+  --destructive: oklch(0.62 0.22 22);
+  --destructive-foreground: oklch(1 0 0);
+  --warning: oklch(0.7 0.16 65);
+  --warning-foreground: oklch(0.2 0.02 260);
+  --success: oklch(0.62 0.16 152);
+  --success-foreground: oklch(1 0 0);
+
+  --border: oklch(0.92 0.005 250);               /* #E5E7EB */
+  --input: oklch(0.92 0.005 250);
+  --ring: oklch(0.72 0.07 80);
+
+  --chart-1: oklch(0.72 0.07 80);    /* gold */
+  --chart-2: oklch(0.62 0.16 152);   /* green */
+  --chart-3: oklch(0.7 0.16 65);     /* amber */
+  --chart-4: oklch(0.62 0.22 22);    /* red */
+  --chart-5: oklch(0.55 0.13 230);   /* blue */
+
+  /* Sidebar = dark slate */
+  --sidebar: oklch(0.205 0.02 260);              /* #111827 */
+  --sidebar-foreground: oklch(0.97 0 0);
+  --sidebar-primary: oklch(0.81 0.06 88);
+  --sidebar-primary-foreground: oklch(0.205 0.02 260);
+  --sidebar-accent: oklch(0.27 0.02 260);        /* #1F2937 */
+  --sidebar-accent-foreground: oklch(0.97 0 0);
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: oklch(0.81 0.06 88);
+
+  --gradient-gold: linear-gradient(135deg, #C9BE95 0%, #B69D66 100%);
+  --gradient-charles: linear-gradient(120deg, #FBF3DC 0%, #F0DFA8 60%, #C9BE95 100%);
+  --gradient-jorge: linear-gradient(120deg, #DCF1EE 0%, #A7D9D1 60%, #5EAFA3 100%);
+  --shadow-sm: 0 1px 2px rgba(17, 24, 39, 0.04);
+  --shadow-md: 0 4px 12px -4px rgba(17, 24, 39, 0.08), 0 2px 4px -2px rgba(17, 24, 39, 0.04);
+  --shadow-lg: 0 12px 32px -12px rgba(17, 24, 39, 0.12), 0 4px 8px -4px rgba(17, 24, 39, 0.06);
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    background-color: var(--color-background);
+    font-family: var(--font-sans);
+  }
+  * { border-color: var(--color-border); }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer components {
+  .surface-card {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow .2s ease, border-color .2s ease, transform .2s ease;
+  }
+  .surface-card:hover {
+    box-shadow: var(--shadow-md);
+  }
+  .page-title {
+    font-size: 1.875rem;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--foreground);
+  }
+  .page-subtitle {
+    color: #6B7280;
+    font-size: 0.875rem;
+    margin-top: 4px;
+  }
+  .btn-premium {
+    background: #111827;
+    color: #FFFFFF;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background .15s ease, transform .15s ease, box-shadow .15s ease;
+    box-shadow: 0 1px 2px rgba(17,24,39,0.08);
+  }
+  .btn-premium:hover { background: #1F2937; box-shadow: 0 4px 12px -4px rgba(17,24,39,0.2); }
+  .btn-premium:active { transform: translateY(1px); }
+
+  .btn-gold {
+    background: var(--gradient-gold);
+    color: #14151A;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: filter .15s ease, transform .15s ease;
+  }
+  .btn-gold:hover { filter: brightness(1.05); }
+  .btn-gold:active { transform: translateY(1px); }
+
+  .label-muted {
+    color: #6B7280;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+}

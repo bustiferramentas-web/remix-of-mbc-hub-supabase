@@ -1,0 +1,1 @@
+ALTER TYPE public.enrollment_manual_status ADD VALUE IF NOT EXISTS 'inadimplente';
