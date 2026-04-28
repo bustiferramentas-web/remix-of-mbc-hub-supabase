@@ -17,6 +17,9 @@ import { Search, Plus, Sparkles, Download, FileSpreadsheet, FileText } from "luc
 import { NewEnrollmentDialog } from "@/components/NewEnrollmentDialog";
 
 export const Route = createFileRoute("/students/")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    manual_status: search.manual_status === "inadimplente" ? ("inadimplente" as const) : undefined,
+  }),
   component: () => <AuthGate><StudentsList /></AuthGate>,
 });
 
