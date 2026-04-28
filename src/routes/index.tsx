@@ -207,7 +207,9 @@ function Dashboard() {
         <Kpi label="Churn revertido (mês)" value={churnReversed} tone="ok" />
         <Kpi label="Churn concluído (mês)" value={churnCompleted} tone="bad" />
         <Kpi label="Total de alunos" value={filtered.length} />
-        <Kpi label="Inadimplentes" value={filtered.filter((e) => e.status === "inadimplente").length} tone="warn" />
+        <Link to="/students" search={{ manual_status: "inadimplente" }} className="block focus:outline-none focus:ring-2 focus:ring-warning/40 rounded-xl">
+          <Kpi label="Inadimplentes" value={filtered.filter((e) => e.manual_status === "inadimplente").length} tone="warn" clickable />
+        </Link>
         <Kpi label="Comunidade vence 30d" value={communityExpiring30.length} tone="warn" />
         <Kpi label="Vitalícios ativos" value={filtered.filter((e) => e.is_vitalicio && e.status === "ativo").length} />
         <Kpi icon={<TrendingUp className="h-4 w-4" />} label="Renovações este mês" value={renewalsThisMonth} tone="ok" />
