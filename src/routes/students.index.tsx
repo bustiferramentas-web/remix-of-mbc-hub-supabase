@@ -111,6 +111,7 @@ function exportXlsx(rows: EnrichedEnrollment[], filename: string, sheetName: str
 function StudentsList() {
   const { enriched, experts, products, loading, refresh } = useMbcData();
   const { expertId } = useExpertFilter();
+  const { manual_status: manualStatusFilter } = Route.useSearch();
   const [q, setQ] = useState("");
   const [fExpert, setFExpert] = useState("all");
   const [fProduct, setFProduct] = useState("all");
@@ -122,6 +123,7 @@ function StudentsList() {
   const productsForExpert = fExpert === "all" ? products : products.filter((p) => p.expert_id === fExpert);
 
   const rows = useMemo(() => enriched.filter((e) => {
+    if (manualStatusFilter === "inadimplente" && e.manual_status !== "inadimplente") return false;
     if (expertId && e.expert_id !== expertId) return false;
     if (q && !(e.name.toLowerCase().includes(q.toLowerCase()) || e.email.toLowerCase().includes(q.toLowerCase()))) return false;
     if (fExpert !== "all" && e.expert_id !== fExpert) return false;
@@ -136,7 +138,7 @@ function StudentsList() {
       if (fExp === "60" && !(d >= 0 && d <= 60)) return false;
     }
     return true;
-  }), [enriched, expertId, q, fExpert, fProduct, fPay, fStatus, fExp]);
+  }), [enriched, expertId, q, fExpert, fProduct, fPay, fStatus, fExp, manualStatusFilter]);
 
   const exportContext = useMemo(() => {
     const product = fProduct !== "all" ? products.find((p) => p.id === fProduct) : null;
