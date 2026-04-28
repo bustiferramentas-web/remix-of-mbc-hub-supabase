@@ -419,13 +419,14 @@ function FSelect({ label, value, onChange, options }: {
   );
 }
 
-function Kpi({ label, value, icon, accent, tone }: {
+function Kpi({ label, value, icon, accent, tone, clickable }: {
   label: string; value: number | string; icon?: React.ReactNode;
-  accent?: boolean; tone?: "ok" | "warn" | "bad";
+  accent?: boolean; tone?: "ok" | "warn" | "bad"; clickable?: boolean;
 }) {
   const toneCls = tone === "ok" ? "text-success" : tone === "warn" ? "text-warning" : tone === "bad" ? "text-destructive" : "";
+  const interactive = clickable ? "cursor-pointer transition-all hover:shadow-md hover:border-warning/50 hover:-translate-y-0.5" : "";
   return (
-    <div className={`rounded-xl border bg-card p-4 ${accent ? "border-primary/40 bg-primary/5" : "border-border"}`}>
+    <div className={`rounded-xl border bg-card p-4 ${accent ? "border-primary/40 bg-primary/5" : "border-border"} ${interactive}`}>
       <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-muted-foreground">
         {icon}{label}
       </div>
