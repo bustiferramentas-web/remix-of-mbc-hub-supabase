@@ -16,10 +16,12 @@ import {
 import { Search, Plus, Sparkles, Download, FileSpreadsheet, FileText } from "lucide-react";
 import { NewEnrollmentDialog } from "@/components/NewEnrollmentDialog";
 
+type StudentsSearch = { manual_status?: "inadimplente" };
+
 export const Route = createFileRoute("/students/")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    manual_status: search.manual_status === "inadimplente" ? ("inadimplente" as const) : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): StudentsSearch => {
+    return search.manual_status === "inadimplente" ? { manual_status: "inadimplente" } : {};
+  },
   component: () => <AuthGate><StudentsList /></AuthGate>,
 });
 
