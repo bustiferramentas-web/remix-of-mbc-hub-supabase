@@ -245,25 +245,33 @@ function StudentsList() {
                     </div>
                   </td>
                   <td className="px-5 py-3 text-muted-foreground">{r.email}</td>
+                  <td className="px-5 py-3 text-muted-foreground">{r.phone ?? "—"}</td>
                   <td className="px-5 py-3">{r.product_name}</td>
                   <td className="px-5 py-3 text-muted-foreground">{r.expert_name}</td>
                   <td className="px-5 py-3 text-muted-foreground">{PAYMENT_LABELS[r.payment_type]}</td>
                   <td className="px-5 py-3">
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full border text-xs ${statusColor(r.status)}`}>
-                      {STATUS_LABELS[r.status]}
-                    </span>
+                    {isInadimplente ? (
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full border text-xs bg-orange-100 text-orange-800 border-orange-300">
+                        Inadimplente
+                      </span>
+                    ) : (
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full border text-xs ${statusColor(r.status)}`}>
+                        {STATUS_LABELS[r.status]}
+                      </span>
+                    )}
                   </td>
                   <td className="px-5 py-3 text-muted-foreground tabular-nums">
                     {r.is_vitalicio
                       ? (commWarn ? <span className="text-amber-600">Comunidade vence em {commDays}d</span> : "—")
                       : (r.expiration_date ?? "—")}
                   </td>
+                  <td className="px-5 py-3 text-muted-foreground tabular-nums">{r.last_payment_date ?? "—"}</td>
                   <td className="px-5 py-3 text-muted-foreground">{r.tmb_status ? TMB_LABELS[r.tmb_status] : "—"}</td>
                 </tr>
                 );
               })}
               {!loading && rows.length === 0 && (
-                <tr><td colSpan={8} className="px-5 py-12 text-center text-muted-foreground">Nenhum aluno encontrado.</td></tr>
+                <tr><td colSpan={10} className="px-5 py-12 text-center text-muted-foreground">Nenhum aluno encontrado.</td></tr>
               )}
             </tbody>
           </table>
