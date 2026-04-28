@@ -216,19 +216,22 @@ function StudentsList() {
               <tr>
                 <th className="text-left px-5 py-3">Nome</th>
                 <th className="text-left px-5 py-3">E-mail</th>
+                <th className="text-left px-5 py-3">Telefone</th>
                 <th className="text-left px-5 py-3">Produto</th>
                 <th className="text-left px-5 py-3">Expert</th>
                 <th className="text-left px-5 py-3">Pagamento</th>
                 <th className="text-left px-5 py-3">Status</th>
                 <th className="text-left px-5 py-3">Vence</th>
+                <th className="text-left px-5 py-3">Último pgto.</th>
                 <th className="text-left px-5 py-3">TMB</th>
               </tr>
             </thead>
             <tbody>
-              {loading && <tr><td colSpan={8} className="px-5 py-12 text-center text-muted-foreground">Carregando…</td></tr>}
+              {loading && <tr><td colSpan={10} className="px-5 py-12 text-center text-muted-foreground">Carregando…</td></tr>}
               {!loading && rows.map((r) => {
                 const commDays = daysToCommunityExpire(r);
                 const commWarn = commDays !== null && commDays >= 0 && commDays <= 60;
+                const isInadimplente = r.manual_status === "inadimplente";
                 return (
                 <tr key={r.id} className="border-t border-border hover:bg-muted/30">
                   <td className="px-5 py-3">
