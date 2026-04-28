@@ -154,6 +154,12 @@ function StudentsList() {
         <div>
           <h1 className="page-title">Alunos</h1>
           <p className="page-subtitle">{rows.length} de {enriched.length}</p>
+          {manualStatusFilter === "inadimplente" && (
+            <div className="mt-2 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-100 border border-orange-300 text-orange-800 text-xs font-medium">
+              Filtrando: Inadimplentes
+              <Link to="/students" search={{}} className="ml-1 hover:text-orange-900 underline">limpar</Link>
+            </div>
+          )}
         </div>
         <div className="flex items-center gap-2">
           <DropdownMenu>
