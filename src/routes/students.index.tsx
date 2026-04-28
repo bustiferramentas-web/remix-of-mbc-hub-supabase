@@ -16,7 +16,12 @@ import {
 import { Search, Plus, Sparkles, Download, FileSpreadsheet, FileText } from "lucide-react";
 import { NewEnrollmentDialog } from "@/components/NewEnrollmentDialog";
 
+type StudentsSearch = { manual_status?: "inadimplente" };
+
 export const Route = createFileRoute("/students/")({
+  validateSearch: (search: Record<string, unknown>): StudentsSearch => {
+    return search.manual_status === "inadimplente" ? { manual_status: "inadimplente" } : {};
+  },
   component: () => <AuthGate><StudentsList /></AuthGate>,
 });
 
@@ -106,6 +111,7 @@ function exportXlsx(rows: EnrichedEnrollment[], filename: string, sheetName: str
 function StudentsList() {
   const { enriched, experts, products, loading, refresh } = useMbcData();
   const { expertId } = useExpertFilter();
+  const { manual_status: manualStatusFilter } = Route.useSearch();
   const [q, setQ] = useState("");
   const [fExpert, setFExpert] = useState("all");
   const [fProduct, setFProduct] = useState("all");
@@ -117,6 +123,7 @@ function StudentsList() {
   const productsForExpert = fExpert === "all" ? products : products.filter((p) => p.expert_id === fExpert);
 
   const rows = useMemo(() => enriched.filter((e) => {
+    if (manualStatusFilter === "inadimplente" && e.manual_status !== "inadimplente") return false;
     if (expertId && e.expert_id !== expertId) return false;
     if (q && !(e.name.toLowerCase().includes(q.toLowerCase()) || e.email.toLowerCase().includes(q.toLowerCase()))) return false;
     if (fExpert !== "all" && e.expert_id !== fExpert) return false;
@@ -131,7 +138,7 @@ function StudentsList() {
       if (fExp === "60" && !(d >= 0 && d <= 60)) return false;
     }
     return true;
-  }), [enriched, expertId, q, fExpert, fProduct, fPay, fStatus, fExp]);
+  }), [enriched, expertId, q, fExpert, fProduct, fPay, fStatus, fExp, manualStatusFilter]);
 
   const exportContext = useMemo(() => {
     const product = fProduct !== "all" ? products.find((p) => p.id === fProduct) : null;
@@ -147,6 +154,12 @@ function StudentsList() {
         <div>
           <h1 className="page-title">Alunos</h1>
           <p className="page-subtitle">{rows.length} de {enriched.length}</p>
+          {manualStatusFilter === "inadimplente" && (
+            <div className="mt-2 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-100 border border-orange-300 text-orange-800 text-xs font-medium">
+              Filtrando: Inadimplentes
+              <Link to="/students" search={{}} className="ml-1 hover:text-orange-900 underline">limpar</Link>
+            </div>
+          )}
         </div>
         <div className="flex items-center gap-2">
           <DropdownMenu>
@@ -203,19 +216,22 @@ function StudentsList() {
               <tr>
                 <th className="text-left px-5 py-3">Nome</th>
                 <th className="text-left px-5 py-3">E-mail</th>
+                <th className="text-left px-5 py-3">Telefone</th>
                 <th className="text-left px-5 py-3">Produto</th>
                 <th className="text-left px-5 py-3">Expert</th>
                 <th className="text-left px-5 py-3">Pagamento</th>
                 <th className="text-left px-5 py-3">Status</th>
                 <th className="text-left px-5 py-3">Vence</th>
+                <th className="text-left px-5 py-3">Último pgto.</th>
                 <th className="text-left px-5 py-3">TMB</th>
               </tr>
             </thead>
             <tbody>
-              {loading && <tr><td colSpan={8} className="px-5 py-12 text-center text-muted-foreground">Carregando…</td></tr>}
+              {loading && <tr><td colSpan={10} className="px-5 py-12 text-center text-muted-foreground">Carregando…</td></tr>}
               {!loading && rows.map((r) => {
                 const commDays = daysToCommunityExpire(r);
                 const commWarn = commDays !== null && commDays >= 0 && commDays <= 60;
+                const isInadimplente = r.manual_status === "inadimplente";
                 return (
                 <tr key={r.id} className="border-t border-border hover:bg-muted/30">
                   <td className="px-5 py-3">
@@ -229,25 +245,33 @@ function StudentsList() {
                     </div>
                   </td>
                   <td className="px-5 py-3 text-muted-foreground">{r.email}</td>
+                  <td className="px-5 py-3 text-muted-foreground">{r.phone ?? "—"}</td>
                   <td className="px-5 py-3">{r.product_name}</td>
                   <td className="px-5 py-3 text-muted-foreground">{r.expert_name}</td>
                   <td className="px-5 py-3 text-muted-foreground">{PAYMENT_LABELS[r.payment_type]}</td>
                   <td className="px-5 py-3">
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full border text-xs ${statusColor(r.status)}`}>
-                      {STATUS_LABELS[r.status]}
-                    </span>
+                    {isInadimplente ? (
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full border text-xs bg-orange-100 text-orange-800 border-orange-300">
+                        Inadimplente
+                      </span>
+                    ) : (
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full border text-xs ${statusColor(r.status)}`}>
+                        {STATUS_LABELS[r.status]}
+                      </span>
+                    )}
                   </td>
                   <td className="px-5 py-3 text-muted-foreground tabular-nums">
                     {r.is_vitalicio
                       ? (commWarn ? <span className="text-amber-600">Comunidade vence em {commDays}d</span> : "—")
                       : (r.expiration_date ?? "—")}
                   </td>
+                  <td className="px-5 py-3 text-muted-foreground tabular-nums">{r.last_payment_date ?? "—"}</td>
                   <td className="px-5 py-3 text-muted-foreground">{r.tmb_status ? TMB_LABELS[r.tmb_status] : "—"}</td>
                 </tr>
                 );
               })}
               {!loading && rows.length === 0 && (
-                <tr><td colSpan={8} className="px-5 py-12 text-center text-muted-foreground">Nenhum aluno encontrado.</td></tr>
+                <tr><td colSpan={10} className="px-5 py-12 text-center text-muted-foreground">Nenhum aluno encontrado.</td></tr>
               )}
             </tbody>
           </table>

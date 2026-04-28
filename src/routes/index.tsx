@@ -207,7 +207,9 @@ function Dashboard() {
         <Kpi label="Churn revertido (mês)" value={churnReversed} tone="ok" />
         <Kpi label="Churn concluído (mês)" value={churnCompleted} tone="bad" />
         <Kpi label="Total de alunos" value={filtered.length} />
-        <Kpi label="Inadimplentes" value={filtered.filter((e) => e.status === "inadimplente").length} tone="warn" />
+        <Link to="/students" search={{ manual_status: "inadimplente" }} className="block focus:outline-none focus:ring-2 focus:ring-warning/40 rounded-xl">
+          <Kpi label="Inadimplentes" value={filtered.filter((e) => e.manual_status === "inadimplente").length} tone="warn" clickable />
+        </Link>
         <Kpi label="Comunidade vence 30d" value={communityExpiring30.length} tone="warn" />
         <Kpi label="Vitalícios ativos" value={filtered.filter((e) => e.is_vitalicio && e.status === "ativo").length} />
         <Kpi icon={<TrendingUp className="h-4 w-4" />} label="Renovações este mês" value={renewalsThisMonth} tone="ok" />
@@ -417,13 +419,14 @@ function FSelect({ label, value, onChange, options }: {
   );
 }
 
-function Kpi({ label, value, icon, accent, tone }: {
+function Kpi({ label, value, icon, accent, tone, clickable }: {
   label: string; value: number | string; icon?: React.ReactNode;
-  accent?: boolean; tone?: "ok" | "warn" | "bad";
+  accent?: boolean; tone?: "ok" | "warn" | "bad"; clickable?: boolean;
 }) {
   const toneCls = tone === "ok" ? "text-success" : tone === "warn" ? "text-warning" : tone === "bad" ? "text-destructive" : "";
+  const interactive = clickable ? "cursor-pointer transition-all hover:shadow-md hover:border-warning/50 hover:-translate-y-0.5" : "";
   return (
-    <div className={`rounded-xl border bg-card p-4 ${accent ? "border-primary/40 bg-primary/5" : "border-border"}`}>
+    <div className={`rounded-xl border bg-card p-4 ${accent ? "border-primary/40 bg-primary/5" : "border-border"} ${interactive}`}>
       <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-muted-foreground">
         {icon}{label}
       </div>
