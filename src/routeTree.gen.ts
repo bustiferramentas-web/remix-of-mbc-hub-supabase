@@ -9,38 +9,28 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ProductsRouteImport } from './routes/products'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as ImportRouteImport } from './routes/import'
-import { Route as ChurnRouteImport } from './routes/churn'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ChurnRouteImport } from './routes/churn'
+import { Route as ImportRouteImport } from './routes/import'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ProductsRouteImport } from './routes/products'
+import { Route as ApiEnrollmentsRouteImport } from './routes/api.enrollments'
+import { Route as ApiProductsRouteImport } from './routes/api.products'
+import { Route as ExpertsExpertIdRouteImport } from './routes/experts.$expertId'
+import { Route as ProductsProductIdRouteImport } from './routes/products.$productId'
 import { Route as StudentsIndexRouteImport } from './routes/students.index'
 import { Route as StudentsIdRouteImport } from './routes/students.$id'
-import { Route as ProductsProductIdRouteImport } from './routes/products.$productId'
-import { Route as ExpertsExpertIdRouteImport } from './routes/experts.$expertId'
-import { Route as ApiProductsRouteImport } from './routes/api.products'
-import { Route as ApiEnrollmentsRouteImport } from './routes/api.enrollments'
-import { Route as ApiProductsMappingRouteImport } from './routes/api.products.mapping'
-import { Route as ApiEnrollmentsUpsertRouteImport } from './routes/api.enrollments.upsert'
-import { Route as ApiEnrollmentsUpdateSubscriptionRouteImport } from './routes/api.enrollments.update-subscription'
-import { Route as ApiEnrollmentsCheckRouteImport } from './routes/api.enrollments.check'
 import { Route as ApiEnrollmentsCancelRouteImport } from './routes/api.enrollments.cancel'
-import { Route as ExpertsExpertIdProductsProductIdRouteImport } from './routes/experts.$expertId.products.$productId'
+import { Route as ApiEnrollmentsCheckRouteImport } from './routes/api.enrollments.check'
+import { Route as ApiEnrollmentsUpdateSubscriptionRouteImport } from './routes/api.enrollments.update-subscription'
+import { Route as ApiEnrollmentsUpsertRouteImport } from './routes/api.enrollments.upsert'
+import { Route as ApiProductsMappingRouteImport } from './routes/api.products.mapping'
 import { Route as ApiEnrollmentsEmailProduct_idRouteImport } from './routes/api.enrollments.$email.$product_id'
+import { Route as ExpertsExpertIdProductsProductIdRouteImport } from './routes/experts.$expertId.products.$productId'
 
-const ProductsRoute = ProductsRouteImport.update({
-  id: '/products',
-  path: '/products',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ImportRoute = ImportRouteImport.update({
-  id: '/import',
-  path: '/import',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChurnRoute = ChurnRouteImport.update({
@@ -48,10 +38,40 @@ const ChurnRoute = ChurnRouteImport.update({
   path: '/churn',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const ImportRoute = ImportRouteImport.update({
+  id: '/import',
+  path: '/import',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiEnrollmentsRoute = ApiEnrollmentsRouteImport.update({
+  id: '/api/enrollments',
+  path: '/api/enrollments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiProductsRoute = ApiProductsRouteImport.update({
+  id: '/api/products',
+  path: '/api/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExpertsExpertIdRoute = ExpertsExpertIdRouteImport.update({
+  id: '/experts/$expertId',
+  path: '/experts/$expertId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsProductIdRoute = ProductsProductIdRouteImport.update({
+  id: '/$productId',
+  path: '/$productId',
+  getParentRoute: () => ProductsRoute,
 } as any)
 const StudentsIndexRoute = StudentsIndexRouteImport.update({
   id: '/students/',
@@ -63,34 +83,14 @@ const StudentsIdRoute = StudentsIdRouteImport.update({
   path: '/students/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProductsProductIdRoute = ProductsProductIdRouteImport.update({
-  id: '/$productId',
-  path: '/$productId',
-  getParentRoute: () => ProductsRoute,
+const ApiEnrollmentsCancelRoute = ApiEnrollmentsCancelRouteImport.update({
+  id: '/cancel',
+  path: '/cancel',
+  getParentRoute: () => ApiEnrollmentsRoute,
 } as any)
-const ExpertsExpertIdRoute = ExpertsExpertIdRouteImport.update({
-  id: '/experts/$expertId',
-  path: '/experts/$expertId',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiProductsRoute = ApiProductsRouteImport.update({
-  id: '/api/products',
-  path: '/api/products',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiEnrollmentsRoute = ApiEnrollmentsRouteImport.update({
-  id: '/api/enrollments',
-  path: '/api/enrollments',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiProductsMappingRoute = ApiProductsMappingRouteImport.update({
-  id: '/mapping',
-  path: '/mapping',
-  getParentRoute: () => ApiProductsRoute,
-} as any)
-const ApiEnrollmentsUpsertRoute = ApiEnrollmentsUpsertRouteImport.update({
-  id: '/upsert',
-  path: '/upsert',
+const ApiEnrollmentsCheckRoute = ApiEnrollmentsCheckRouteImport.update({
+  id: '/check',
+  path: '/check',
   getParentRoute: () => ApiEnrollmentsRoute,
 } as any)
 const ApiEnrollmentsUpdateSubscriptionRoute =
@@ -99,27 +99,27 @@ const ApiEnrollmentsUpdateSubscriptionRoute =
     path: '/update-subscription',
     getParentRoute: () => ApiEnrollmentsRoute,
   } as any)
-const ApiEnrollmentsCheckRoute = ApiEnrollmentsCheckRouteImport.update({
-  id: '/check',
-  path: '/check',
+const ApiEnrollmentsUpsertRoute = ApiEnrollmentsUpsertRouteImport.update({
+  id: '/upsert',
+  path: '/upsert',
   getParentRoute: () => ApiEnrollmentsRoute,
 } as any)
-const ApiEnrollmentsCancelRoute = ApiEnrollmentsCancelRouteImport.update({
-  id: '/cancel',
-  path: '/cancel',
-  getParentRoute: () => ApiEnrollmentsRoute,
+const ApiProductsMappingRoute = ApiProductsMappingRouteImport.update({
+  id: '/mapping',
+  path: '/mapping',
+  getParentRoute: () => ApiProductsRoute,
 } as any)
-const ExpertsExpertIdProductsProductIdRoute =
-  ExpertsExpertIdProductsProductIdRouteImport.update({
-    id: '/products/$productId',
-    path: '/products/$productId',
-    getParentRoute: () => ExpertsExpertIdRoute,
-  } as any)
 const ApiEnrollmentsEmailProduct_idRoute =
   ApiEnrollmentsEmailProduct_idRouteImport.update({
     id: '/$email/$product_id',
     path: '/$email/$product_id',
     getParentRoute: () => ApiEnrollmentsRoute,
+  } as any)
+const ExpertsExpertIdProductsProductIdRoute =
+  ExpertsExpertIdProductsProductIdRouteImport.update({
+    id: '/products/$productId',
+    path: '/products/$productId',
+    getParentRoute: () => ExpertsExpertIdRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -261,25 +261,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/products': {
-      id: '/products'
-      path: '/products'
-      fullPath: '/products'
-      preLoaderRoute: typeof ProductsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/import': {
-      id: '/import'
-      path: '/import'
-      fullPath: '/import'
-      preLoaderRoute: typeof ImportRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/churn': {
@@ -289,12 +275,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChurnRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/import': {
+      id: '/import'
+      path: '/import'
+      fullPath: '/import'
+      preLoaderRoute: typeof ImportRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/enrollments': {
+      id: '/api/enrollments'
+      path: '/api/enrollments'
+      fullPath: '/api/enrollments'
+      preLoaderRoute: typeof ApiEnrollmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/products': {
+      id: '/api/products'
+      path: '/api/products'
+      fullPath: '/api/products'
+      preLoaderRoute: typeof ApiProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/experts/$expertId': {
+      id: '/experts/$expertId'
+      path: '/experts/$expertId'
+      fullPath: '/experts/$expertId'
+      preLoaderRoute: typeof ExpertsExpertIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/$productId': {
+      id: '/products/$productId'
+      path: '/$productId'
+      fullPath: '/products/$productId'
+      preLoaderRoute: typeof ProductsProductIdRouteImport
+      parentRoute: typeof ProductsRoute
     }
     '/students/': {
       id: '/students/'
@@ -310,53 +338,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/products/$productId': {
-      id: '/products/$productId'
-      path: '/$productId'
-      fullPath: '/products/$productId'
-      preLoaderRoute: typeof ProductsProductIdRouteImport
-      parentRoute: typeof ProductsRoute
-    }
-    '/experts/$expertId': {
-      id: '/experts/$expertId'
-      path: '/experts/$expertId'
-      fullPath: '/experts/$expertId'
-      preLoaderRoute: typeof ExpertsExpertIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/products': {
-      id: '/api/products'
-      path: '/api/products'
-      fullPath: '/api/products'
-      preLoaderRoute: typeof ApiProductsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/enrollments': {
-      id: '/api/enrollments'
-      path: '/api/enrollments'
-      fullPath: '/api/enrollments'
-      preLoaderRoute: typeof ApiEnrollmentsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/products/mapping': {
-      id: '/api/products/mapping'
-      path: '/mapping'
-      fullPath: '/api/products/mapping'
-      preLoaderRoute: typeof ApiProductsMappingRouteImport
-      parentRoute: typeof ApiProductsRoute
-    }
-    '/api/enrollments/upsert': {
-      id: '/api/enrollments/upsert'
-      path: '/upsert'
-      fullPath: '/api/enrollments/upsert'
-      preLoaderRoute: typeof ApiEnrollmentsUpsertRouteImport
-      parentRoute: typeof ApiEnrollmentsRoute
-    }
-    '/api/enrollments/update-subscription': {
-      id: '/api/enrollments/update-subscription'
-      path: '/update-subscription'
-      fullPath: '/api/enrollments/update-subscription'
-      preLoaderRoute: typeof ApiEnrollmentsUpdateSubscriptionRouteImport
+    '/api/enrollments/cancel': {
+      id: '/api/enrollments/cancel'
+      path: '/cancel'
+      fullPath: '/api/enrollments/cancel'
+      preLoaderRoute: typeof ApiEnrollmentsCancelRouteImport
       parentRoute: typeof ApiEnrollmentsRoute
     }
     '/api/enrollments/check': {
@@ -366,11 +352,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiEnrollmentsCheckRouteImport
       parentRoute: typeof ApiEnrollmentsRoute
     }
-    '/api/enrollments/cancel': {
-      id: '/api/enrollments/cancel'
-      path: '/cancel'
-      fullPath: '/api/enrollments/cancel'
-      preLoaderRoute: typeof ApiEnrollmentsCancelRouteImport
+    '/api/enrollments/update-subscription': {
+      id: '/api/enrollments/update-subscription'
+      path: '/update-subscription'
+      fullPath: '/api/enrollments/update-subscription'
+      preLoaderRoute: typeof ApiEnrollmentsUpdateSubscriptionRouteImport
+      parentRoute: typeof ApiEnrollmentsRoute
+    }
+    '/api/enrollments/upsert': {
+      id: '/api/enrollments/upsert'
+      path: '/upsert'
+      fullPath: '/api/enrollments/upsert'
+      preLoaderRoute: typeof ApiEnrollmentsUpsertRouteImport
+      parentRoute: typeof ApiEnrollmentsRoute
+    }
+    '/api/products/mapping': {
+      id: '/api/products/mapping'
+      path: '/mapping'
+      fullPath: '/api/products/mapping'
+      preLoaderRoute: typeof ApiProductsMappingRouteImport
+      parentRoute: typeof ApiProductsRoute
+    }
+    '/api/enrollments/$email/$product_id': {
+      id: '/api/enrollments/$email/$product_id'
+      path: '/$email/$product_id'
+      fullPath: '/api/enrollments/$email/$product_id'
+      preLoaderRoute: typeof ApiEnrollmentsEmailProduct_idRouteImport
       parentRoute: typeof ApiEnrollmentsRoute
     }
     '/experts/$expertId/products/$productId': {
@@ -379,13 +386,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/experts/$expertId/products/$productId'
       preLoaderRoute: typeof ExpertsExpertIdProductsProductIdRouteImport
       parentRoute: typeof ExpertsExpertIdRoute
-    }
-    '/api/enrollments/$email/$product_id': {
-      id: '/api/enrollments/$email/$product_id'
-      path: '/$email/$product_id'
-      fullPath: '/api/enrollments/$email/$product_id'
-      preLoaderRoute: typeof ApiEnrollmentsEmailProduct_idRouteImport
-      parentRoute: typeof ApiEnrollmentsRoute
     }
   }
 }
